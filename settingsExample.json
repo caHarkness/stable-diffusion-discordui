@@ -1,0 +1,18 @@
+{
+    "token": "PUT TOKEN HERE",
+    "playing": "with your imagination",
+    "path": "D:\\Git\\stable-diffusion-webui",
+    "checkpoints": [
+        {
+            "name":     "Anything-V3.0-pruned-fp32.ckpt",
+            "channels": ["sd-anime"]
+        },
+
+        {
+            "name":     "v1-5-pruned-emaonly.ckpt",
+            "channels": ["sd-misc"]
+        }
+    ],
+    "timeBetweenInstanceLaunches": 5,
+    "timeAfterInstanceLaunch": 25
+}
