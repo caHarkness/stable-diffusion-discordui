@@ -5,6 +5,8 @@ Process     = require("child_process");
 Request     = require("request");
 FileSystem  = require("fs");
 
+https = require("https");
+
 try
 {  
     BadWords = FileSystem.readFileSync("BadWords.txt", "utf8");
@@ -43,9 +45,10 @@ Libraries =
         //     Libraries.load(lib);
 
         // Libraries are relative to this script's directory, not the current working directory:
-        Settings        = Libraries.load("./settings.json");
-        EventHandlers   = Libraries.load("./EventHandlers.js");
-        StableDiffusion = Libraries.load("./StableDiffusion.js");
+        Settings            = Libraries.load("./settings.json");
+        EventHandlers       = Libraries.load("./EventHandlers.js");
+        StableDiffusion     = Libraries.load("./StableDiffusion.js");
+        SynchronousRequest  = Libraries.load("./SynchronousRequest.js");
     }
 };
 
@@ -99,11 +102,11 @@ Bot.on(
 
             var task = function()
             {
-                var o = StableDiffusion.newInstance(name, channels);
-                o.getProcess();
-                StableDiffusionInstances.push(o);
-                EventHandlers.onLogLine("New stable diffusion instance: " + name);
-            }
+                var ins = StableDiffusion.create(name, channels);
+                ins.getProcess();
+
+                StableDiffusion.register(ins);
+            };
 
             TaskQueue.push(task);
         }
